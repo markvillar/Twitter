@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Tweet: Identifiable {
+struct Tweet: Identifiable, Codable {
     let id = UUID()
     let content: String
     //let tweetedAt: Date

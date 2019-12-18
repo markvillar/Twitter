@@ -7,24 +7,35 @@
 //
 
 import UIKit
+import Firebase
 
 private let tweetCellIdentifier = "tweetCell"
 
 class HomeController: UICollectionViewController {
     
-    var tweets: [Tweet] = [
-        Tweet(content: "just setting up my twttr", user: User(firstName: "Jack", lastName: "Dorsey", userName: "@jack")),
-        Tweet(content: "Hello Twitter!", user: User(firstName: "Biz", lastName: "Stone", userName: "@biz")),
-        Tweet(content: "What is twitter?", user: User(firstName: "Steve", lastName: "Woz", userName: "@woz")),
-        Tweet(content: "Setting up my twittr", user: User(firstName: "Jack", lastName: "Dorsey", userName: "@jack")),
-        Tweet(content: "Hey Twitter!", user: User(firstName: "Biz", lastName: "Stone", userName: "@biz"))
-    ]
+    var tweetListen: ListenerRegistration?
+    
+    var tweets: [Tweet] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
         // Register cell classes
         self.collectionView!.register(TweetCell.self, forCellWithReuseIdentifier: tweetCellIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tweetListener()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        tweetListen?.remove()
     }
     
     override func loadView() {
@@ -79,13 +90,40 @@ extension HomeController {
         
         navigationItem.titleView = twitterNavigation
         
-        let composeTweetButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(composeTweet))
+        let composeTweetButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(composeTweet))
         navigationItem.rightBarButtonItem = composeTweetButton
         
     }
     
     @objc func composeTweet() {
-        print("Compose Tweet!")
+        
+        let composeTweetController = ComposeTweetController()
+        let navigationController = UINavigationController(rootViewController: composeTweetController)
+        present(navigationController, animated: true, completion: nil)
+        
+    }
+    
+    func tweetListener() {
+        
+        let database = Firestore.firestore()
+        
+        self.tweetListen = database.collection(Subcollections.tweets).addSnapshotListener { [weak self] querySnapshot, error in
+            
+            guard let snapshots = querySnapshot?.documents else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            
+            var objects: [Tweet] = []
+            
+            for document in snapshots {
+                guard let object = try? document.decode(as: Tweet.self) else { return }
+                objects.append(object)
+            }
+            
+            self?.tweets = objects
+        }
+        
     }
     
 }

@@ -73,7 +73,7 @@ class TweetCell: UICollectionViewCell {
     
     fileprivate func setupView() {
         
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         let subViews:[UIView] = [userProfile, name, userName, content]
         

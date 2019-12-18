@@ -29,7 +29,7 @@ class HomeController: UICollectionViewController {
     
     override func loadView() {
         super.loadView()
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
     }
     
     // MARK: UICollectionViewDataSource

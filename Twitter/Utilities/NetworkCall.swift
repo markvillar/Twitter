@@ -13,7 +13,7 @@ struct NetworkCall {
     
     fileprivate let database = Firestore.firestore()
     
-    func addData<T: Encodable>(to encodableObject: T, in subCollection: String) {
+    func add<T: Encodable>(data encodableObject: T, in subCollection: String) {
         
         do {
             let json = try encodableObject.toJson(excluding: ["id"])

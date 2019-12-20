@@ -39,7 +39,7 @@ class ComposeTweetView: UIView {
     }
     
     fileprivate func setupView() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         setupConstraints()
     }
     

@@ -28,7 +28,8 @@ class HomeController: UICollectionViewController {
         setupNavigation()
         
         // Register cell classes
-        self.collectionView!.register(TweetCell.self, forCellWithReuseIdentifier: tweetCellIdentifier)
+        collectionView!.register(TweetCell.self, forCellWithReuseIdentifier: tweetCellIdentifier)
+        collectionView.alwaysBounceVertical = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

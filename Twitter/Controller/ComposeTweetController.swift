@@ -22,7 +22,7 @@ class ComposeTweetController: UIViewController {
     }
     
     fileprivate func setupNavigation() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(composeTweet))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Tweet", style: .done, target: self, action: #selector(composeTweet))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissComposeTweet))
     }
     

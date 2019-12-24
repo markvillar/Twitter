@@ -13,6 +13,8 @@ private let tweetCellIdentifier = "tweetCell"
 
 class HomeController: UICollectionViewController {
     
+    let auth = Auth.auth()
+    
     var tweetListen: ListenerRegistration?
     
     var tweets: [Tweet] = [] {
@@ -24,6 +26,7 @@ class HomeController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
+        
         // Register cell classes
         self.collectionView!.register(TweetCell.self, forCellWithReuseIdentifier: tweetCellIdentifier)
     }
@@ -31,16 +34,12 @@ class HomeController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tweetListener()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        tweetListen?.remove()
-    }
-    
-    override func loadView() {
-        super.loadView()
         collectionView.backgroundColor = .systemBackground
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tweetListen?.remove()
     }
     
     // MARK: UICollectionViewDataSource
@@ -93,14 +92,19 @@ extension HomeController {
         let composeTweetButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(composeTweet))
         navigationItem.rightBarButtonItem = composeTweetButton
         
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        navigationItem.leftBarButtonItem = logoutButton
     }
     
     @objc func composeTweet() {
-        
         let composeTweetController = ComposeTweetController()
         let navigationController = UINavigationController(rootViewController: composeTweetController)
         present(navigationController, animated: true, completion: nil)
-        
+    }
+    
+    @objc func logout() {
+        try? auth.signOut()
+        print("Logged Out")
     }
     
     func tweetListener() {

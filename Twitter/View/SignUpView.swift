@@ -20,6 +20,8 @@ class SignUpView: UIView {
         let textField = UITextField()
         textField.placeholder = "Username"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -28,6 +30,8 @@ class SignUpView: UIView {
         let textField = UITextField()
         textField.placeholder = "First Name"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -36,6 +40,8 @@ class SignUpView: UIView {
         let textField = UITextField()
         textField.placeholder = "Last Name"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -44,6 +50,8 @@ class SignUpView: UIView {
         let textField = UITextField()
         textField.placeholder = "Email Address"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -53,6 +61,8 @@ class SignUpView: UIView {
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -62,6 +72,8 @@ class SignUpView: UIView {
         textField.placeholder = "Password Verification"
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .secondarySystemBackground
         return textField
     }()
@@ -79,7 +91,7 @@ class SignUpView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .yellow
+        stackView.backgroundColor = .systemBackground
         return stackView
     }()
     

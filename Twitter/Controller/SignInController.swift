@@ -8,9 +8,12 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class SignInController: UIViewController {
-
+    
+    let auth = Auth.auth()
+    
     override func loadView() {
         super.loadView()
         view = SignInView()
@@ -26,9 +29,27 @@ class SignInController: UIViewController {
 
 extension SignInController: SignInDelegate {
     
+    func register() {
+        let signUpController = SignUpController()
+        present(signUpController, animated: true, completion: nil)
+    }
+    
     func signIn(emailAddress: String, password: String) {
         
-        Auth.auth().signIn(withEmail: emailAddress, password: password) { authDataResult, error in
+        auth.signIn(withEmail: emailAddress, password: password) { [weak self] authDataResult, error in
+            
+            self?.auth.signIn(withEmail: emailAddress, password: password, completion: { authDataResult, authError in
+                
+                if authError != nil {
+                    print("Auth Error: \(String(describing: authError?.localizedDescription))")
+                } else {
+                    print("authDataResult: \(String(describing: authDataResult?.user))")
+                    
+                    //Dismiss the Signin view after successful signin.
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
+                }
+                
+            })
             
         }
         

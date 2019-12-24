@@ -10,16 +10,21 @@ import UIKit
 
 protocol SignInDelegate {
     func signIn(emailAddress: String, password: String) -> Void
+    func register() -> Void
 }
 
 class SignInView: UIView {
     
     var didTapSignIn: SignInDelegate?
     
+    var subViews: [UIView]!
+    
     let emailField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .white
         return textField
     }()
@@ -28,6 +33,9 @@ class SignInView: UIView {
         let textField = UITextField()
         textField.placeholder = "Password"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .white
         return textField
     }()
@@ -41,6 +49,15 @@ class SignInView: UIView {
         return button
     }()
     
+    let registerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Register", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(registerSegue), for: .touchUpInside)
+        return button
+    }()
+    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -50,10 +67,7 @@ class SignInView: UIView {
         return stackView
     }()
     
-    var subViews: [UIView]!
-    
     //MARK: Initialiser
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -64,13 +78,12 @@ class SignInView: UIView {
     }
     
     //MARK: Setup View
-    
     fileprivate func setupView() {
-        backgroundColor = .yellow
+        backgroundColor = .systemBackground
         
         addSubview(stackView)
         
-        self.subViews = [emailField, passwordField, signInButton]
+        self.subViews = [emailField, passwordField, signInButton, registerButton]
         
         subViews.forEach { view in
             addSubview(view)
@@ -81,7 +94,6 @@ class SignInView: UIView {
     }
     
     //MARK: Constraints
-    
     fileprivate func setupConstraints() {
         
         NSLayoutConstraint.activate([
@@ -89,6 +101,10 @@ class SignInView: UIView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    @objc fileprivate func registerSegue() {
+        register()
     }
     
     @objc fileprivate func login() {
@@ -99,6 +115,11 @@ class SignInView: UIView {
 
 
 extension SignInView: SignInDelegate {
+    
+    func register() {
+        //Segue to register page
+        didTapSignIn?.register()
+    }
     
     func signIn(emailAddress: String, password: String) {
         didTapSignIn?.signIn(emailAddress: emailAddress, password: password)

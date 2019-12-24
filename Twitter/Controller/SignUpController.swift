@@ -31,15 +31,14 @@ extension SignUpController: SignUpDelegate {
     
     func createAccount(userName: String, emailAddress: String, password: String) {
         
-        Auth.auth().createUser(withEmail: emailAddress, password: password) { [unowned self] result, err in
+        auth.createUser(withEmail: emailAddress, password: password) { [weak self] result, err in
             
             if let error = err {
                 print(error)
             } else {
                 print("Successfully Registered")
                 
-                let homeController = HomeController()
-                self.present(homeController, animated: true)
+                self?.navigationController?.dismiss(animated: true, completion: nil)
             }
             
         }

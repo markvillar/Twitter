@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class TabBarController: UITabBarController {
     
+    let auth = Auth.auth()
+    
     var homeScreenController: UINavigationController = {
-        
         let layout = UICollectionViewFlowLayout()
         let homeController = HomeController(collectionViewLayout: layout)
         var hc = UINavigationController(rootViewController: homeController)
@@ -23,6 +25,22 @@ class TabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //MARK: Auth Listener
+        auth.addStateDidChangeListener { [unowned self] auth, user in
+            
+            print("Auth Listener")
+            
+            guard let authenticatedUser = user else {
+                let signIn = SignInController()
+                let navigationSignin = UINavigationController(rootViewController: signIn)
+                navigationSignin.isModalInPresentation = true
+                self.present(navigationSignin, animated: true)
+                return
+            }
+            
+            print("\(String(describing: authenticatedUser.email))")
+        }
     }
     
     override func viewDidLoad() {
@@ -31,13 +49,17 @@ class TabBarController: UITabBarController {
         setUpTabBar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        auth.removeStateDidChangeListener(auth)
+    }
+    
     fileprivate func setUpTabBar() {
         tabBar.isTranslucent = true
         tabBar.isOpaque = true
     }
     
     //MARK: RootViewControllers
-    
     fileprivate func setUpViewControllers() {
         
         tabBar.isTranslucent = false

@@ -35,6 +35,7 @@ class TabBarController: UITabBarController {
                 let signIn = SignInController()
                 let navigationSignin = UINavigationController(rootViewController: signIn)
                 navigationSignin.isModalInPresentation = true
+                navigationSignin.modalPresentationStyle = .fullScreen
                 self.present(navigationSignin, animated: true)
                 return
             }

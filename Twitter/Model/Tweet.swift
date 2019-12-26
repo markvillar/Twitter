@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import Firebase
 
 struct Tweet: Identifiable, Codable {
     let id = UUID()
     let content: String
-    //let tweetedAt: Date
+    let createdAt: Timestamp
     let user: User
 }

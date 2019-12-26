@@ -29,8 +29,6 @@ class TabBarController: UITabBarController {
         //MARK: Auth Listener
         auth.addStateDidChangeListener { [unowned self] auth, user in
             
-            print("Auth Listener")
-            
             guard let authenticatedUser = user else {
                 let signIn = SignInController()
                 let navigationSignin = UINavigationController(rootViewController: signIn)

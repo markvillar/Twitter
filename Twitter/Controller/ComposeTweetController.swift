@@ -33,7 +33,7 @@ class ComposeTweetController: UIViewController {
         
         guard let tweet = composeView.tweetText.text else { return }
         
-        let composedTweet = Tweet(content: tweet, tweetedAt: Timestamp(date: Date()), user: User(firstName: "Mark", lastName: "Villar",  userName: "@mark"))
+        let composedTweet = Tweet(content: tweet, createdAt: Timestamp(date: Date()), user: User(firstName: "Mark", lastName: "Villar",  userName: "@mark"))
         
         let firestore = NetworkCall()
         firestore.add(data: composedTweet, in: Subcollections.tweets)

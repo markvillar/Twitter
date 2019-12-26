@@ -24,6 +24,8 @@
 		4DD75BF223AA7E40001F9A26 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD75BF123AA7E40001F9A26 /* Extensions.swift */; };
 		4DD75BF623AA926E001F9A26 /* ComposeTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD75BF523AA926E001F9A26 /* ComposeTweetController.swift */; };
 		4DD75BF823AA927D001F9A26 /* ComposeTweetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD75BF723AA927D001F9A26 /* ComposeTweetView.swift */; };
+		4DDD866623B2DC0800B65C5D /* TweetDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDD866523B2DC0800B65C5D /* TweetDetail.swift */; };
+		4DDD866823B2DC2D00B65C5D /* TweetDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDD866723B2DC2D00B65C5D /* TweetDetailController.swift */; };
 		4DFC033723AC359700EBCD5F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC033623AC359700EBCD5F /* SignInView.swift */; };
 		4DFC033923AC35AE00EBCD5F /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC033823AC35AE00EBCD5F /* SignInController.swift */; };
 		AD79BA4C1399F2DDA1537159 /* Pods_Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0902707FC23D17937B92F9ED /* Pods_Twitter.framework */; };
@@ -51,6 +53,8 @@
 		4DD75BF123AA7E40001F9A26 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4DD75BF523AA926E001F9A26 /* ComposeTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTweetController.swift; sourceTree = "<group>"; };
 		4DD75BF723AA927D001F9A26 /* ComposeTweetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTweetView.swift; sourceTree = "<group>"; };
+		4DDD866523B2DC0800B65C5D /* TweetDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetail.swift; sourceTree = "<group>"; };
+		4DDD866723B2DC2D00B65C5D /* TweetDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetailController.swift; sourceTree = "<group>"; };
 		4DFC033623AC359700EBCD5F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4DFC033823AC35AE00EBCD5F /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		E4DD8031F7B3DC28AB0E4A4A /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 				4DD75BF723AA927D001F9A26 /* ComposeTweetView.swift */,
 				4DA17C1123ABDF23003EAAEE /* SignUpView.swift */,
 				4DFC033623AC359700EBCD5F /* SignInView.swift */,
+				4DDD866523B2DC0800B65C5D /* TweetDetail.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				4DD75BF523AA926E001F9A26 /* ComposeTweetController.swift */,
 				4DA17C0F23ABDF0E003EAAEE /* SignUpController.swift */,
 				4DFC033823AC35AE00EBCD5F /* SignInController.swift */,
+				4DDD866723B2DC2D00B65C5D /* TweetDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -279,9 +285,11 @@
 			files = (
 				4DA17C1023ABDF0E003EAAEE /* SignUpController.swift in Sources */,
 				4D75805923A98CC500F05533 /* AppDelegate.swift in Sources */,
+				4DDD866823B2DC2D00B65C5D /* TweetDetailController.swift in Sources */,
 				4DD75BF223AA7E40001F9A26 /* Extensions.swift in Sources */,
 				4D75805B23A98CC500F05533 /* SceneDelegate.swift in Sources */,
 				4DD75BF023AA54C5001F9A26 /* NetworkCall.swift in Sources */,
+				4DDD866623B2DC0800B65C5D /* TweetDetail.swift in Sources */,
 				4D111E1023AAC57D00DAD969 /* Subcollections.swift in Sources */,
 				4DD75BF823AA927D001F9A26 /* ComposeTweetView.swift in Sources */,
 				4DD75BF623AA926E001F9A26 /* ComposeTweetController.swift in Sources */,

@@ -61,6 +61,13 @@ class HomeController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let detailedTweet = TweetDetailController(individualTweet: tweets[indexPath.row])
+        
+        navigationController?.pushViewController(detailedTweet, animated: true)
+    }
+    
 }
 
 //MARK: CollectionViewFlowLayout

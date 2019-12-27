@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignUpDelegate {
-    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String) -> Void
+    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String, passwordVerification: String) -> Void
 }
 
 class SignUpView: UIView {
@@ -152,7 +152,7 @@ class SignUpView: UIView {
     
     @objc fileprivate func createNewAccount() {
         
-        createAccount(userName: userName.text!, firstName: firstName.text!, lastName: lastName.text!, emailAddress: emailAddress.text!, password: passwordField.text!)
+        createAccount(userName: userName.text!, firstName: firstName.text!, lastName: lastName.text!, emailAddress: emailAddress.text!, password: passwordField.text!, passwordVerification: passwordVerificationField.text!)
         
     }
     
@@ -161,8 +161,8 @@ class SignUpView: UIView {
 //MARK: Delegate Method
 
 extension SignUpView: SignUpDelegate {
-    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String) {
-        didTapCreateAccountDelegate?.createAccount(userName: userName, firstName: firstName, lastName: lastName, emailAddress: emailAddress, password: password)
+    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String, passwordVerification: String) {
+        didTapCreateAccountDelegate?.createAccount(userName: userName, firstName: firstName, lastName: lastName, emailAddress: emailAddress, password: password, passwordVerification: passwordVerification)
     }
     
 }

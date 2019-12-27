@@ -19,6 +19,14 @@ class SignInView: UIView {
     
     var subViews: [UIView]!
     
+    let imageLogo: UIImageView = {
+        let image = UIImage(named: "twitter")
+        let imageLogo = UIImageView(image: image)
+        imageLogo.contentMode = .scaleAspectFill
+        imageLogo.translatesAutoresizingMaskIntoConstraints = false
+        return imageLogo
+    }()
+    
     let emailField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
@@ -45,6 +53,7 @@ class SignInView: UIView {
         button.setTitle("Signin", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(named: "TwitterBlue")
+        button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(login), for: .touchUpInside)
         return button
     }()
@@ -54,8 +63,16 @@ class SignInView: UIView {
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(named: "TwitterBlue")
+        button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(registerSegue), for: .touchUpInside)
         return button
+    }()
+    
+    let copyrightInfo: UILabel = {
+        let copyrightInfo = UILabel()
+        copyrightInfo.text = "Twitter Inc © 2019"
+        copyrightInfo.translatesAutoresizingMaskIntoConstraints = false
+        return copyrightInfo
     }()
     
     let stackView: UIStackView = {
@@ -81,7 +98,9 @@ class SignInView: UIView {
     fileprivate func setupView() {
         backgroundColor = .systemBackground
         
+        addSubview(imageLogo)
         addSubview(stackView)
+        addSubview(copyrightInfo)
         
         self.subViews = [emailField, passwordField, signInButton, registerButton]
         
@@ -100,6 +119,17 @@ class SignInView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            signInButton.heightAnchor.constraint(equalToConstant: 45),
+            registerButton.heightAnchor.constraint(equalToConstant: 45),
+            
+            imageLogo.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
+            imageLogo.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -40),
+            imageLogo.widthAnchor.constraint(equalToConstant: 176),
+            imageLogo.heightAnchor.constraint(equalToConstant: 143),
+            
+            copyrightInfo.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            copyrightInfo.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     

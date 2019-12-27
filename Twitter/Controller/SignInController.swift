@@ -40,8 +40,10 @@ extension SignInController: SignInDelegate {
             
             self?.auth.signIn(withEmail: emailAddress, password: password, completion: { authDataResult, authError in
                 
-                if authError != nil {
-                    print("Auth Error: \(String(describing: authError?.localizedDescription))")
+                if let authError = error {
+                    
+                    AlertController.customAlert(title: "Error", message: authError.localizedDescription, on: self)
+                    
                 } else {
                     print("authDataResult: \(String(describing: authDataResult?.user))")
                     

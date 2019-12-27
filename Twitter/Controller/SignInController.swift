@@ -31,7 +31,7 @@ extension SignInController: SignInDelegate {
     
     func register() {
         let signUpController = SignUpController()
-        present(signUpController, animated: true, completion: nil)
+        navigationController?.pushViewController(signUpController, animated: true)
     }
     
     func signIn(emailAddress: String, password: String) {

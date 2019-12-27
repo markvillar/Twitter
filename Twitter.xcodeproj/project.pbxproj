@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D05895723B6039700CD81B5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D05895623B6039700CD81B5 /* AlertController.swift */; };
 		4D111E1023AAC57D00DAD969 /* Subcollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D111E0F23AAC57D00DAD969 /* Subcollections.swift */; };
 		4D75805923A98CC500F05533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D75805823A98CC500F05533 /* AppDelegate.swift */; };
 		4D75805B23A98CC500F05533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D75805A23A98CC500F05533 /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		0902707FC23D17937B92F9ED /* Pods_Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D05895623B6039700CD81B5 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		4D111E0F23AAC57D00DAD969 /* Subcollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcollections.swift; sourceTree = "<group>"; };
 		4D75805523A98CC400F05533 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D75805823A98CC500F05533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				4DD75BEF23AA54C5001F9A26 /* NetworkCall.swift */,
 				4DD75BF123AA7E40001F9A26 /* Extensions.swift */,
 				4D111E0F23AAC57D00DAD969 /* Subcollections.swift */,
+				4D05895623B6039700CD81B5 /* AlertController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				4DDD866623B2DC0800B65C5D /* TweetDetail.swift in Sources */,
 				4D111E1023AAC57D00DAD969 /* Subcollections.swift in Sources */,
 				4DD75BF823AA927D001F9A26 /* ComposeTweetView.swift in Sources */,
+				4D05895723B6039700CD81B5 /* AlertController.swift in Sources */,
 				4DD75BF623AA926E001F9A26 /* ComposeTweetController.swift in Sources */,
 				4D75806D23A98EB900F05533 /* HomeController.swift in Sources */,
 				4DFC033723AC359700EBCD5F /* SignInView.swift in Sources */,

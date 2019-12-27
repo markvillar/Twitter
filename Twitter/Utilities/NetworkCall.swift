@@ -28,6 +28,22 @@ struct NetworkCall {
         
     }
     
+    func add<T: Encodable>(with id: String, data encodableObject: T, in subCollection: String) {
+        
+        do {
+            let json = try encodableObject.toJson(excluding: ["id"])
+            
+            database.collection(subCollection).document(id).setData(json) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+    
     func read<T: Decodable>(collection: String, returning objectType: T.Type, completion: @escaping ([T]) -> ()) {
         
         database.collection(collection).getDocuments { querySnapshot, error in

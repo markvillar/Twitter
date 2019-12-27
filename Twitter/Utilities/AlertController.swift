@@ -15,9 +15,15 @@ struct AlertController {
     ///   - title: String
     ///   - message: String
     ///   - vc: ViewController
-    public static func customAlert(title: String, message: String, on vc: UIViewController) {
+    public static func customAlert(title: String, message: String, on vc: UIViewController?) {
+        
+        guard let controller = vc else {
+            print("Cannot present alert because there is no view controller attached to the Alert.")
+            return
+        }
+        
         DispatchQueue.main.async {
-            showAlert(on: vc, title: title, message: message)
+            showAlert(on: controller, title: title, message: message)
         }
     }
     

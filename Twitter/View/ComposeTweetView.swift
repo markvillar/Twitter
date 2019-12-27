@@ -34,9 +34,9 @@ class ComposeTweetView: UIView {
         addSubview(tweetText)
         
         NSLayoutConstraint.activate([
-            tweetText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            tweetText.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            tweetText.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tweetText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5),
+            tweetText.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            tweetText.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             tweetText.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

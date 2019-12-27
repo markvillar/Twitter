@@ -14,4 +14,5 @@ Update Tweet | ❌ To-Do
 Delete Tweet | ❌ To-Do
 
 ### Screenshots
-To be posted
+<img align="left" src="Screenshots/screen1.png" width="270" height="500" />
+<img align="left" src="Screenshots/screen2.png" width="270" height="500" />

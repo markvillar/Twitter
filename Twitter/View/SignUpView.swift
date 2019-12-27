@@ -81,7 +81,7 @@ class SignUpView: UIView {
     let createAccountButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create Account", for: .normal)
-        button.backgroundColor = .blue
+        button.backgroundColor = UIColor(named: "TwitterBlue")
         button.addTarget(self, action: #selector(createNewAccount), for: .touchUpInside)
         return button
     }()

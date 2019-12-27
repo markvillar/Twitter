@@ -44,7 +44,7 @@ class SignInView: UIView {
         let button = UIButton()
         button.setTitle("Signin", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue
+        button.backgroundColor = UIColor(named: "TwitterBlue")
         button.addTarget(self, action: #selector(login), for: .touchUpInside)
         return button
     }()
@@ -53,7 +53,7 @@ class SignInView: UIView {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue
+        button.backgroundColor = UIColor(named: "TwitterBlue")
         button.addTarget(self, action: #selector(registerSegue), for: .touchUpInside)
         return button
     }()

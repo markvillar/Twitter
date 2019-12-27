@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignUpDelegate {
-    func createAccount(userName: String, emailAddress: String, password: String) -> Void
+    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String) -> Void
 }
 
 class SignUpView: UIView {
@@ -22,7 +22,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -32,7 +32,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -42,7 +42,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -52,7 +52,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -63,7 +63,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -74,7 +74,7 @@ class SignUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-        textField.backgroundColor = .secondarySystemBackground
+        textField.backgroundColor = .systemBackground
         return textField
     }()
     
@@ -82,17 +82,26 @@ class SignUpView: UIView {
         let button = UIButton()
         button.setTitle("Create Account", for: .normal)
         button.backgroundColor = UIColor(named: "TwitterBlue")
+        button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(createNewAccount), for: .touchUpInside)
         return button
     }()
     
-    let stackView: UIStackView = {
+    let signUpStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .systemBackground
         return stackView
+    }()
+    
+    let twitterLogo: UIImageView = {
+        let image = UIImage(named: "twitter")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     var subViews: [UIView]!
@@ -111,12 +120,13 @@ class SignUpView: UIView {
     fileprivate func setupView() {
         backgroundColor = .systemBackground
         
-        addSubview(stackView)
+        addSubview(signUpStackView)
+        addSubview(twitterLogo)
         
         self.subViews = [userName, firstName, lastName, emailAddress, passwordField, passwordVerificationField, createAccountButton]
         subViews.forEach { view in
             addSubview(view)
-            stackView.addArrangedSubview(view)
+            signUpStackView.addArrangedSubview(view)
         }
         
         setupConstraints()
@@ -127,14 +137,22 @@ class SignUpView: UIView {
     fileprivate func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            signUpStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            signUpStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            signUpStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            twitterLogo.bottomAnchor.constraint(equalTo: signUpStackView.topAnchor, constant: -20),
+            twitterLogo.centerXAnchor.constraint(equalTo: centerXAnchor),
+            twitterLogo.heightAnchor.constraint(equalToConstant: 100),
+            twitterLogo.widthAnchor.constraint(equalToConstant: 122.78),
+            
+            createAccountButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
     
     @objc fileprivate func createNewAccount() {
         
-        createAccount(userName: userName.text!, emailAddress: emailAddress.text!, password: passwordField.text!)
+        createAccount(userName: userName.text!, firstName: firstName.text!, lastName: lastName.text!, emailAddress: emailAddress.text!, password: passwordField.text!)
         
     }
     
@@ -143,9 +161,8 @@ class SignUpView: UIView {
 //MARK: Delegate Method
 
 extension SignUpView: SignUpDelegate {
-    
-    func createAccount(userName: String, emailAddress: String, password: String) {
-        didTapCreateAccountDelegate?.createAccount(userName: userName, emailAddress: emailAddress, password: password)
+    func createAccount(userName: String, firstName: String, lastName: String, emailAddress: String, password: String) {
+        didTapCreateAccountDelegate?.createAccount(userName: userName, firstName: firstName, lastName: lastName, emailAddress: emailAddress, password: password)
     }
     
 }

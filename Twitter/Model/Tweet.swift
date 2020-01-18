@@ -9,7 +9,16 @@
 import Foundation
 import Firebase
 
-struct Tweet: Identifiable, Codable {
+struct Tweet: Codable, Identifiable, Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Tweet, rhs: Tweet) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     let id = UUID()
     let content: String
     let createdAt: Timestamp

@@ -10,6 +10,8 @@ import UIKit
 
 class TweetCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "tweetCell"
+    
     let userProfile: UIImageView = {
         let defaultImage = UIImage(imageLiteralResourceName: "default")
         let size = CGRect(x: 0, y: 0, width: 80, height: 80)

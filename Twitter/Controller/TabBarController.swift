@@ -14,8 +14,7 @@ class TabBarController: UITabBarController {
     let auth = Auth.auth()
     
     var homeScreenController: UINavigationController = {
-        let layout = UICollectionViewFlowLayout()
-        let homeController = HomeController(collectionViewLayout: layout)
+        let homeController = HomeController()
         var hc = UINavigationController(rootViewController: homeController)
         
         hc.tabBarItem.title = "Home"

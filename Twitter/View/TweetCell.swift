@@ -10,17 +10,20 @@ import UIKit
 
 class TweetCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "tweetCell"
+    
     let userProfile: UIImageView = {
         let defaultImage = UIImage(imageLiteralResourceName: "default")
-        let size = CGRect(x: 0, y: 0, width: 80, height: 80)
-        let profile = UIImageView(frame: size)
+        let size = CGFloat(60)
+        let sizeRect = CGRect(x: 0, y: 0, width: size, height: size)
+        let profile = UIImageView(frame: sizeRect)
         
         profile.image = defaultImage
         profile.layer.borderColor = UIColor.lightGray.cgColor
         profile.layer.borderWidth = 0.5
         profile.layer.masksToBounds = false
         profile.layer.borderColor = UIColor.black.cgColor
-        profile.layer.cornerRadius = size.height/2
+        profile.layer.cornerRadius = size/2
         profile.clipsToBounds = true
         profile.translatesAutoresizingMaskIntoConstraints = false
         return profile
@@ -84,7 +87,7 @@ class TweetCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             userProfile.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             userProfile.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            userProfile.widthAnchor.constraint(equalToConstant: 80),
+            userProfile.widthAnchor.constraint(equalToConstant: 60),
             userProfile.heightAnchor.constraint(equalTo: userProfile.widthAnchor, multiplier: 1.0/1.0),
             
             name.topAnchor.constraint(equalTo: userProfile.topAnchor),
@@ -95,7 +98,8 @@ class TweetCell: UICollectionViewCell {
             
             content.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 0),
             content.leadingAnchor.constraint(equalTo: userProfile.trailingAnchor, constant: 8),
-            content.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            content.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            content.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ])
         
     }

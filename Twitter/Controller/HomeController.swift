@@ -9,33 +9,32 @@
 import UIKit
 import Firebase
 
-private let tweetCellIdentifier = "tweetCell"
-
-class HomeController: UICollectionViewController {
+class HomeController: UIViewController {
+    
+    enum Section {
+        case main
+    }
+    
+    var dataSource: UICollectionViewDiffableDataSource<Section, Tweet>! = nil
+    var collectionView: UICollectionView! = nil
     
     let auth = Auth.auth()
     
     var tweetListen: ListenerRegistration?
     
-    var tweets: [Tweet] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    var tweets: [Tweet] = [Tweet]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
         
-        // Register cell classes
-        collectionView!.register(TweetCell.self, forCellWithReuseIdentifier: tweetCellIdentifier)
-        collectionView.alwaysBounceVertical = true
+        configureHierarchy()
+        configureDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tweetListener()
-        collectionView.backgroundColor = .systemBackground
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,46 +43,30 @@ class HomeController: UICollectionViewController {
     }
     
     // MARK: UICollectionViewDataSource
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    private func configureHierarchy() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
+        view.addSubview(collectionView)
+        collectionView.delegate = self
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tweetCellIdentifier, for: indexPath) as! TweetCell
-        
-        cell.set(tweet: tweets[indexPath.row])
-        
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let detailedTweet = TweetDetailController(individualTweet: tweets[indexPath.row])
-        
-        navigationController?.pushViewController(detailedTweet, animated: true)
-    }
-    
-}
-
-//MARK: CollectionViewFlowLayout
-
-extension HomeController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = view.bounds.width
-        let height = CGFloat(100)
-        
-        return CGSize(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        1
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Tweet>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            
+            // Get a cell of the desired kind.
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: TweetCell.reuseIdentifier,
+                for: indexPath) as? TweetCell else {fatalError("Cannot create tweet cell") }
+            
+            // Populate the cell with our item description.
+            cell.set(tweet: itemIdentifier)
+            
+            // Return the cell.
+            return cell
+        }
     }
     
 }
@@ -129,13 +112,42 @@ extension HomeController {
             var objects: [Tweet] = []
             
             for document in snapshots {
+                
                 guard let object = try? document.decode(as: Tweet.self) else { return }
                 objects.append(object)
             }
             
-            self?.tweets = objects
+            // Add data
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Tweet>()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(objects)
+            self?.dataSource.apply(snapshot, animatingDifferences: false)
+            
         }
         
     }
     
+}
+
+extension HomeController {
+    private func createLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let spacing = CGFloat(10)
+        group.interItemSpacing = .fixed(spacing)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+}
+
+extension HomeController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
 }

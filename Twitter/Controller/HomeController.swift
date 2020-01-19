@@ -121,7 +121,7 @@ extension HomeController {
             var snapshot = NSDiffableDataSourceSnapshot<Section, Tweet>()
             snapshot.appendSections([.main])
             snapshot.appendItems(objects)
-            self?.dataSource.apply(snapshot, animatingDifferences: false)
+            self?.dataSource.apply(snapshot, animatingDifferences: true)
             
         }
         

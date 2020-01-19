@@ -33,12 +33,18 @@ class ComposeTweetController: UIViewController {
         
         guard let tweet = composeView.tweetText.text else { return }
         
-        let composedTweet = Tweet(content: tweet, createdAt: Timestamp(date: Date()), user: User(firstName: "Mark", lastName: "Villar",  userName: "@mark"))
+        if composeView.tweetText.text.isEmpty {
+            //No text was added
+            dismissComposeTweet()
+        } else {
+            let composedTweet = Tweet(content: tweet, createdAt: Timestamp(date: Date()), user: User(firstName: "Mark", lastName: "Villar",  userName: "@mark"))
+            
+            let firestore = NetworkCall()
+            firestore.add(data: composedTweet, in: Subcollections.tweets)
+            
+            dismissComposeTweet()
+        }
         
-        let firestore = NetworkCall()
-        firestore.add(data: composedTweet, in: Subcollections.tweets)
-        
-        dismissComposeTweet()
     }
     
     @objc func dismissComposeTweet() {

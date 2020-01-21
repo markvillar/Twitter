@@ -18,7 +18,7 @@ class TabBarController: UITabBarController {
         var hc = UINavigationController(rootViewController: homeController)
         
         hc.tabBarItem.title = "Home"
-        //hc.tabBarItem.image = UIImage(named: "list")
+        hc.tabBarItem.image = UIImage(systemName: "house.fill")
         return hc
     }()
     

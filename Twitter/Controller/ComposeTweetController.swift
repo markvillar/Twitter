@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ComposeTweetController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +25,13 @@ class ComposeTweetController: UIViewController {
     fileprivate func setupNavigation() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Tweet", style: .done, target: self, action: #selector(composeTweet))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissComposeTweet))
+        
+        //Disable tweet button until user enters at least one character/text
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        guard let composeView = view as? ComposeTweetView else { return }
+        
+        composeView.tweetText.delegate = self
     }
     
     @objc func composeTweet() {
@@ -50,5 +57,21 @@ class ComposeTweetController: UIViewController {
     @objc func dismissComposeTweet() {
         dismiss(animated: true, completion: nil)
     }
+    
+}
 
+extension ComposeTweetController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if textView.text.isEmpty {
+            //TextField was emptied - revert the button to disabled state
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            //TextField contains at least one character - enable the tweet button
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        
+        return true
+    }
+    
 }

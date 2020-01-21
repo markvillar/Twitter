@@ -19,3 +19,4 @@ Delete Tweet | ❌ To-Do
 ### Screenshots
 <img align="left" src="Screenshots/screen1.png" width="270" height="500" />
 <img align="left" src="Screenshots/screen2.png" width="270" height="500" />
+<img align="left" src="Screenshots/screen6.png" width="270" height="500" />

@@ -49,7 +49,8 @@ class TweetCell: UICollectionViewCell {
         let content = UITextView()
         content.text = "Tweet not available"
         content.textAlignment = .left
-        content.font = UIFont.systemFont(ofSize: 15)
+        content.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 15, weight: .regular))
+        content.textColor = .label
         content.isScrollEnabled = false
         content.isSelectable = false
         content.isEditable = false

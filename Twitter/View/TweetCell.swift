@@ -68,10 +68,10 @@ class TweetCell: UICollectionViewCell {
     }
     
     func set(tweet: Tweet) {
-        DispatchQueue.main.async { [unowned self] in
-            self.name.text = "\(tweet.user.firstName) \(tweet.user.lastName)"
-            self.userName.text = tweet.user.userName
-            self.content.text = tweet.content
+        DispatchQueue.main.async { [weak self] in
+            self?.name.text = "\(tweet.user.firstName) \(tweet.user.lastName)"
+            self?.userName.text = tweet.user.userName
+            self?.content.text = tweet.content
         }
     }
     

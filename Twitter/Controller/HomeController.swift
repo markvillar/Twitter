@@ -30,11 +30,11 @@ class HomeController: UIViewController {
         
         configureHierarchy()
         configureDataSource()
+        tweetListener()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tweetListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,6 +123,7 @@ extension HomeController {
             snapshot.appendItems(objects)
             self?.dataSource.apply(snapshot, animatingDifferences: true)
             
+            self?.collectionView.reloadData()
         }
         
     }

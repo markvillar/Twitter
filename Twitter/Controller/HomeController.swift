@@ -35,6 +35,7 @@ class HomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

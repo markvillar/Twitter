@@ -20,7 +20,7 @@ class HomeController: UIViewController {
     
     let auth = Auth.auth()
     
-    var tweetListen: ListenerRegistration?
+    private let refreshControl = UIRefreshControl()
     
     var tweets: [Tweet] = [Tweet]()
     
@@ -29,8 +29,8 @@ class HomeController: UIViewController {
         setupNavigation()
         
         configureHierarchy()
+        setupRefreshControls()
         configureDataSource()
-        tweetListener()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +39,43 @@ class HomeController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tweetListen?.remove()
+    }
+    
+    fileprivate func setupRefreshControls() {
+        refreshControl.addTarget(self, action: #selector(getData), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetchin Data ...", attributes: nil)
+        collectionView.refreshControl = refreshControl
+    }
+    
+    @objc func getData() {
+        
+        let database = Firestore.firestore()
+        
+        database.collection(Subcollections.tweets).getDocuments { [weak self] querySnapshot, error in
+            
+            guard let snapshots = querySnapshot?.documents else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            
+            var objects: [Tweet] = []
+            
+            for document in snapshots {
+                guard let object = try? document.decode(as: Tweet.self) else { return }
+                objects.append(object)
+            }
+            
+            // Add data
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Tweet>()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(objects)
+            self?.dataSource.apply(snapshot, animatingDifferences: true)
+            
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -97,37 +133,6 @@ extension HomeController {
         try? auth.signOut()
         print("Logged Out")
     }
-    
-    func tweetListener() {
-        
-        let database = Firestore.firestore()
-        
-        self.tweetListen = database.collection(Subcollections.tweets).addSnapshotListener { [weak self] querySnapshot, error in
-            
-            guard let snapshots = querySnapshot?.documents else {
-                print("Error fetching documents: \(error!)")
-                return
-            }
-            
-            var objects: [Tweet] = []
-            
-            for document in snapshots {
-                
-                guard let object = try? document.decode(as: Tweet.self) else { return }
-                objects.append(object)
-            }
-            
-            // Add data
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Tweet>()
-            snapshot.appendSections([.main])
-            snapshot.appendItems(objects)
-            self?.dataSource.apply(snapshot, animatingDifferences: true)
-            
-            self?.collectionView.reloadData()
-        }
-        
-    }
-    
 }
 
 extension HomeController {

@@ -55,6 +55,12 @@ class TweetDetail: UIView {
         return content
     }()
     
+    func set(username: String, name: String, content: String) {
+        self.name.text = name
+        self.userName.text = username
+        self.content.text = content
+    }
+    
     //MARK: Initialiser
     override init(frame: CGRect) {
         super.init(frame: frame)

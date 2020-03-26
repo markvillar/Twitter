@@ -154,6 +154,10 @@ extension HomeController {
 
 extension HomeController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        print("delegate is running")
+        guard let tweet = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        print(tweet.content)
+        let tweetDetail = TweetDetailController(individualTweet: tweet)
+        navigationController?.pushViewController(tweetDetail, animated: true)
     }
 }
